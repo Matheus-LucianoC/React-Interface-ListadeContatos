@@ -1,120 +1,194 @@
-import * as React from 'react';
-import { View, Text, Button, Image, StyleSheet, TouchableOpacity,TextInput} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
-const Stack = createNativeStackNavigator();
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  Image
   
-function HomeScreen({ navigation }) {
-return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text>Home Screen</Text>
-<Button title='Contatos' onPress={() => navigation.navigate('Contacts')}>
-</Button>
-</View>
-);
-}
+} from 'react-native';
+import { SafeAreaView } from 'react-native-web';
 
 
 
-function Contacts({ navigation }) {
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('CadastrarContato')}>
-          <Image
-            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/8922/8922789.png' }}
-            style={{ width: 28, height: 28, marginRight: 15 }}
-          />
-        </TouchableOpacity>
-      ),
-    });
-  }, []);
+
+export default function App() {
+
+  const contatos = [
+    { id: '1', nome: 'Marcos Andrade',email: "Marquinhos@hot.email" ,telefone: '81 988553424' },
+    { id: '2', nome: 'Patrícia Tavares',email: "Patricia@email.com" ,telefone: '81 998765332' },
+    { id: '3', nome: 'Rodrigo Antunes',email: "Rodr4312341@email.com" ,telefone: '81 987765525' },  ];
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text onPress={() => navigation.navigate('AlterarContato')}>Pessoa 1</Text>
-      <Text onPress={() => navigation.navigate('AlterarContato')}>Pessoa 2</Text>
-      <Text onPress={() => navigation.navigate('AlterarContato')}>Pessoa 3</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>MESSAGES & CHAT</Text>
+
+      <Image source={require('./assets/images/sideImage.png')} style={styles.imagem3} />
+
+      <Text style={styles.textoescondido2}>________________</Text>
+
+       <Text style={styles.texto2}>Mark all read                        Sort by time ⬇️</Text>
+
+      <FlatList
+        data={contatos}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+  <TouchableOpacity
+    style={styles.card}
+    onPress={() =>
+  navigation.navigate('AlterarContato', {
+    nome: item.nome,
+    telefone: item.telefone,
+    email: item.email
+  })
+}
+  >
+    <Image
+  source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
+  style={styles.avatar}
+/> 
+
+    <View style={styles.infoContainer}>
+      <Text style={styles.nome}>{item.nome}</Text>
+      <Text>{item.telefone}</Text>
+    </View>
+  </TouchableOpacity>
+)}
+
+/>
     </View>
   );
 }
 
-function LoginScreen({ navigation }) {
-return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text>Login Screen</Text>
-<Button title='Login' onPress={() => navigation.navigate('Home')}>
-</Button>
-<Button title='Cadastrar' onPress={() => navigation.navigate('signIn')}>
-</Button>
-</View>
-);  
-}
-
-function SignIn({ navigation }) {
-return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text>Cadastro</Text>
-<Button title='Salvar'></Button>
-</View>
-);
-}
-
-function AlterarContato({ navigation }) {
-return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text>Alterar Contato</Text>
-<Button title='Alterar'></Button>
-<Button title='Excluir'></Button>
-</View>
-);
-}
-function CadastrarContato({ navigation }) {
-return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text>Nome</Text>
-<TextInput style={styles.input} placeholder="Nome"/>
-<Text>Email</Text>
-<TextInput style={styles.input} placeholder="Email"/>
-<Text>Telefone</Text>
-<TextInput style={styles.input} placeholder="Telefone"/>
-<Button title='salvar'></Button>
-</View>
-);
-}
-
-function App() {
-return (
-<NavigationContainer>
-<Stack.Navigator>
-<Stack.Screen name="Login" component={LoginScreen} />
-<Stack.Screen name="Home" component={HomeScreen} />
-<Stack.Screen name="signIn" component={SignIn} />
-<Stack.Screen name="Contacts" component={Contacts} />
-<Stack.Screen name="AlterarContato" component={AlterarContato} />
-<Stack.Screen name="CadastrarContato" component={CadastrarContato} />
-</Stack.Navigator>
-</NavigationContainer>
-);
-}
-
 const styles = StyleSheet.create({
-  logo: {
-    width: 200,
-    height: 200,
-  },
   container: {
     flex: 1,
+    padding: 20,
+  
+    backgroundColor: '#fff'
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  }
-});
 
-export default App;
+  title: {
+    fontSize: 22,
+    fontFamily: 'London',
+    textAlign: 'center',
+    marginBottom: 20,
+    marginLeft: 67
+  },
+
+  texto2: {
+    fontSize: 19,
+    fontFamily: 'London',
+    marginBottom: 20
+  },
+
+  primaryButton: {
+    backgroundColor: '#2E86DE',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10
+  },
+
+  warningButton: {
+    backgroundColor: '#2E86DE',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10
+  },
+
+  dangerButton: {
+    backgroundColor: '#ff0000',
+    padding: 15,
+    borderRadius: 8
+  },
+
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+
+  link: {
+    backgroundColor: '#ff0000',
+    color: '#fff',
+    fontWeight:'bold',
+    textAlign: 'center',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10
+  },
+
+  card: {
+    backgroundColor: '#f2f2f2',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10
+  },
+
+  nome: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+
+  floatingButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#2E86DE',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  plus: {
+    color: '#fff',
+    fontSize: 30
+  },
+  FlatList: {
+    marginBottom: 
+  },
+
+  textoescondido2: {
+    color: '#2c48ff',
+    fontSize: 22,
+    fontFamily: 'London',
+    textAlign: 'center',
+    marginBottom: 120,
+    fontWeight: 'bold',
+    marginLeft: 61,
+    marginTop: -25
+  },
+
+  card: {
+  backgroundColor: '#f2f2f2',
+  padding: 15, 
+  borderRadius: 10,
+  marginBottom: 10,
+  flexDirection: 'row',
+  alignItems: 'center'
+},
+
+avatar: {
+  width: 50,
+  height: 50,  
+  borderRadius: 25,
+  marginRight: 15
+},
+
+imagem3: {
+  marginTop: -37,
+  marginLeft: -20,
+  width: 300,
+  height: 150,
+  position: 'absolute'
+},
+
+infoContainer: {
+  flex: 1
+}});
