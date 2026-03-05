@@ -6,60 +6,82 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
-  Image
-  
+  Image,
+  SafeAreaView
 } from 'react-native';
-import { SafeAreaView } from 'react-native-web';
 
-
-
-
-
-export default function App() {
+export default function App({ navigation }) {
 
   const contatos = [
-    { id: '1', nome: 'Marcos Andrade',email: "Marquinhos@hot.email" ,telefone: '81 988553424' },
-    { id: '2', nome: 'Patrícia Tavares',email: "Patricia@email.com" ,telefone: '81 998765332' },
-    { id: '3', nome: 'Rodrigo Antunes',email: "Rodr4312341@email.com" ,telefone: '81 987765525' },  ];
+    { id: '1', nome: 'Marcos Andrade', email: "Marquinhos@hot.email", telefone: '81 988553424' },
+    { id: '2', nome: 'Patrícia Tavares', email: "Patricia@email.com", telefone: '81 998765332' },
+    { id: '3', nome: 'Rodrigo Antunes', email: "Rodr4312341@email.com", telefone: '81 987765525' },
+    { id: '4', nome: 'Marcos Andrade', email: "Marquinhos@hot.email", telefone: '81 988553424' },
+    { id: '5', nome: 'Patrícia Tavares', email: "Patricia@email.com", telefone: '81 998765332' },
+    { id: '6', nome: 'Rodrigo Antunes', email: "Rodr4312341@email.com", telefone: '81 987765525' },
+    { id: '7', nome: 'Rodrigo Antunes', email: "Rodr4312341@email.com", telefone: '81 987765525' }
+  ];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>MESSAGES & CHAT</Text>
-
-      <Image source={require('./assets/images/sideImage.png')} style={styles.imagem3} />
-
-      <Text style={styles.textoescondido2}>________________</Text>
-
-       <Text style={styles.texto2}>Mark all read                        Sort by time ⬇️</Text>
-
-      <FlatList
-        data={contatos}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-  <TouchableOpacity
-    style={styles.card}
-    onPress={() =>
-  navigation.navigate('AlterarContato', {
-    nome: item.nome,
-    telefone: item.telefone,
-    email: item.email
-  })
-}
-  >
-    <Image
-  source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
-  style={styles.avatar}
-/> 
-
-    <View style={styles.infoContainer}>
-      <Text style={styles.nome}>{item.nome}</Text>
-      <Text>{item.telefone}</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.footer}>
+  
+  <TouchableOpacity style={styles.footerButton}>
+    <Text>🏠</Text>
   </TouchableOpacity>
-)}
 
-/>
-    </View>
+  <TouchableOpacity style={styles.footerButton}>
+    <Text>🔍</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.footerButton}>
+    <Text>💬</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.footerButton}>
+    <Text>⚙️</Text>
+  </TouchableOpacity>
+
+  </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>MESSAGES & CHAT</Text>
+
+        <Image source={require('./assets/images/sideImage.png')} style={styles.imagem3} />
+
+        <Text style={styles.textoescondido2}>________________</Text>
+
+        <Text style={styles.texto2}>Mark all read                        Sort by time ⬇️</Text>
+
+        <FlatList
+          data={contatos}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() =>
+                navigation?.navigate('AlterarContato', {
+                  nome: item.nome,
+                  telefone: item.telefone,
+                  email: item.email
+                })
+              }
+            >
+              <Image
+                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
+                style={styles.avatar}
+              />
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.nome}>{item.nome}</Text>
+                <Text>{item.telefone}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+
+        <Image source={require('./assets/images/ImagemRandom2.png')} style={styles.imagem4} />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -67,7 +89,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  
     backgroundColor: '#fff'
   },
 
@@ -126,7 +147,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     padding: 15,
     borderRadius: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   nome: {
@@ -150,8 +173,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30
   },
+
   FlatList: {
-    marginBottom: 
+    marginBottom: 1
   },
 
   textoescondido2: {
@@ -165,30 +189,46 @@ const styles = StyleSheet.create({
     marginTop: -25
   },
 
-  card: {
-  backgroundColor: '#f2f2f2',
-  padding: 15, 
-  borderRadius: 10,
-  marginBottom: 10,
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 15
+  },
+
+  imagem3: {
+    marginTop: -37,
+    marginLeft: -20,
+    width: 300,
+    height: 150,
+    position: 'absolute'
+  },
+
+  imagem4: {
+    position: 'absolute',
+    bottom: -1,
+    right: -1,
+    width: 300,
+    height: 150
+  },
+
+  infoContainer: {
+    flex: 1
+  },
+
+  footer: {
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: 70,
+  backgroundColor: '#eee',
   flexDirection: 'row',
+  justifyContent: 'space-around',
   alignItems: 'center'
 },
 
-avatar: {
-  width: 50,
-  height: 50,  
-  borderRadius: 25,
-  marginRight: 15
+footerButton: {
+  alignItems: 'center'
 },
-
-imagem3: {
-  marginTop: -37,
-  marginLeft: -20,
-  width: 300,
-  height: 150,
-  position: 'absolute'
-},
-
-infoContainer: {
-  flex: 1
-}});
+});
