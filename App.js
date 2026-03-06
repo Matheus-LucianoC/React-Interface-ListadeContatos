@@ -24,33 +24,17 @@ export default function App({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.footer}>
-  
-  <TouchableOpacity style={styles.footerButton}>
-    <Text>🏠</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.footerButton}>
-    <Text>🔍</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.footerButton}>
-    <Text>💬</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.footerButton}>
-    <Text>⚙️</Text>
-  </TouchableOpacity>
-
-  </View>
       <View style={styles.container}>
+
         <Text style={styles.title}>MESSAGES & CHAT</Text>
 
         <Image source={require('./assets/images/sideImage.png')} style={styles.imagem3} />
 
         <Text style={styles.textoescondido2}>________________</Text>
 
-        <Text style={styles.texto2}>Mark all read                        Sort by time ⬇️</Text>
+        <Text style={styles.texto2}>
+          Mark all read                        Sort by time ⬇️
+        </Text>
 
         <FlatList
           data={contatos}
@@ -79,13 +63,39 @@ export default function App({ navigation }) {
           )}
         />
 
-        <Image source={require('./assets/images/ImagemRandom2.png')} style={styles.imagem4} />
+        {/* FOOTER */}
+        <View style={styles.footer}>
+
+          <TouchableOpacity style={styles.footerButton}>
+            <Text>🏠</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.footerButton}>
+            <Text>🔍</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.footerButton}>
+            <Text>💬</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.footerButton}>
+            <Text>⚙️</Text>
+          </TouchableOpacity>
+
+        </View>
+
+        <Image
+          source={require('./assets/images/ImagemRandom2.png')}
+          style={styles.imagem4}
+        />
+
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     padding: 20,
@@ -106,43 +116,6 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
 
-  primaryButton: {
-    backgroundColor: '#2E86DE',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10
-  },
-
-  warningButton: {
-    backgroundColor: '#2E86DE',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10
-  },
-
-  dangerButton: {
-    backgroundColor: '#ff0000',
-    padding: 15,
-    borderRadius: 8
-  },
-
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold'
-  },
-
-  link: {
-    backgroundColor: '#ff0000',
-    color: '#fff',
-    fontWeight:'bold',
-    textAlign: 'center',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10
-  },
-
   card: {
     backgroundColor: '#f2f2f2',
     padding: 15,
@@ -157,25 +130,15 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
 
-  floatingButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    backgroundColor: '#2E86DE',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center'
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 15
   },
 
-  plus: {
-    color: '#fff',
-    fontSize: 30
-  },
-
-  FlatList: {
-    marginBottom: 1
+  infoContainer: {
+    flex: 1
   },
 
   textoescondido2: {
@@ -187,13 +150,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 61,
     marginTop: -25
-  },
-
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 15
   },
 
   imagem3: {
@@ -212,23 +168,20 @@ const styles = StyleSheet.create({
     height: 150
   },
 
-  infoContainer: {
-    flex: 1
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: '#eeeeee',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
 
-  footer: {
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  height: 70,
-  backgroundColor: '#eee',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center'
-},
+  footerButton: {
+    alignItems: 'center'
+  }
 
-footerButton: {
-  alignItems: 'center'
-},
 });
